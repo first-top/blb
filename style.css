@@ -1,0 +1,211 @@
+.k1-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  & * {
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    box-sizing: inherit;
+  }
+  }
+
+.k1-table-title {
+  margin-top: 2rem;
+}
+
+.k1-table {
+
+
+  font-size: 0.8rem;
+  padding: 0;
+  margin-top: 1rem;
+  & + .k1-table {
+
+  }
+
+
+
+  & .k1-table__notification {
+    background-color: rgba(255, 255, 0, 0.4);
+    padding: 1rem;
+    width: 100%;
+    max-width: none;
+
+    &.success {
+      background-color: rgba(0, 128, 0, 0.4);
+    }
+  }
+
+  & .k1-table__head {
+    margin-top: 1rem;
+    font-weight: 700;
+
+    & .k1-table-cell {
+      border-top: 1px solid black;
+      font-size: 1rem;
+    }
+  }
+
+  & .k1-table__row {
+    display: flex;
+    border-bottom: 1px solid black;
+
+  }
+
+  & .k1-table-cell {
+    flex: 0 0 80px;
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid black;
+
+    &:last-child {
+      border-right: 1px solid black;
+    }
+
+    &:not(.k1-table-cell--long) {
+      justify-content: center;
+    }
+
+    &.k1-table-cell--long {
+      flex: 1 1 auto;
+    }
+
+    & select {
+      width: 35px;
+      text-align: center;
+    }
+  }
+}
+
+.k1-report {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid black;
+  & .k1-report__head {
+    background-color: rgba(255, 0, 0, 0.2);
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+  }
+
+  & .k1-report__row {
+    display: flex;
+    /*align-items: center;*/
+    & + .k1-report__row {
+      border-top: 1px solid black;
+    }
+  }
+
+  & .k1-report__cell {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    & + .k1-report__cell {
+      border-left: 1px solid black;
+    }
+  }
+}
+
+.k1-contacts {
+  margin-top: 2rem;
+
+  & form {
+
+  }
+
+  & label, & button {
+    display: block;
+  }
+
+  & label {
+    width: 100%;
+    &:first-child {
+      grid-area: name
+    }
+    &:last-child {
+      grid-area: phone
+    }
+  }
+
+  /*& label + label {*/
+  /*  margin-top: .5rem;*/
+  /*}*/
+
+  & input {
+    border: none;
+    border-bottom: 2px solid black;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  & button {
+    margin: 1rem auto 0;
+    color: #fff;
+    background-color: #ff8f0b;
+    border-radius: 30px;
+    padding: 10px 70px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    grid-area: button;
+    &:disabled {
+      background-color: grey;
+      opacity: .3;
+      &:after {
+        display: none;
+      }
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .4));
+      width: 45px;
+      height: 100%;
+      top: 0;
+      left: -10%;
+      transform: skewX(-45deg);
+      animation: flash 3s linear 0s infinite;
+    }
+  }
+}
+
+@keyframes flash {
+  0% {
+    left: -30%;
+  }
+  50% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@media(min-width: 550px) {
+  .k1-table {
+    & .k1-table__notification {
+      max-width: 50%;
+    }
+    & .k1-table-cell {
+      flex: 0 0 15%;
+      &.k1-table-cell--long {
+        flex: 0 0 85%;
+      }
+    }
+  }
+  .k1-contacts {
+    & form {
+      display: grid;
+      gap: 2rem;
+      grid-template-areas:
+      "name phone"
+      "button button";
+    }
+  }
+}
