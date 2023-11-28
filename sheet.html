@@ -14,6 +14,8 @@
 <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
 <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
+<button onclick="addNewRow()">ADD NEW ROW</button>
+
 <pre id="content" style="white-space: pre-wrap;"></pre>
 
 <script type="text/javascript">
@@ -145,6 +147,30 @@
       (str, row) => `${str}${row[0]}, ${row[4]}\n`,
       'Name, Major:\n');
     document.getElementById('content').innerText = output;
+  }
+  
+  async function addNewRow() {
+    console.log("add new row")
+    try {
+      // Fetch first 10 files
+      response = await gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: '1xh1Y1gAM0_9KXM_tCak5m4SQKHGw2sJ6QINHt9vE7Cg',
+        range: 'A1:D1',
+        valueInputOption: "ROWS",
+        resource: {
+          values: [
+            ["name1", "phone1", "role", "role"],
+            ["name2", "phone2", "role", "role"],
+          ],
+        },
+      }, (err, response) => {
+        if (err) return console.error(err)
+      });
+      
+    } catch (err) {
+      document.getElementById('content').innerText = err.message;
+      return;
+    }
   }
 </script>
 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
