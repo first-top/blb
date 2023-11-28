@@ -28,7 +28,8 @@
 
 
   & .k1-table__notification {
-    background-color: rgba(255, 255, 0, 0.4);
+    /*background-color: rgba(255, 255, 0, 0.4);*/
+    background-color: #ea9999;
     padding: 1rem;
     width: 100%;
     max-width: none;
