@@ -150,8 +150,8 @@
     document.getElementById('content').innerText = output;
   }
   
-  async function addNewRow() {
-    console.log("add new row")
+  function addNewRow() {
+    console.log("add new row 6")
     
     try {
       // tokenClient = google.accounts.oauth2.initTokenClient({
@@ -165,14 +165,14 @@
       )
       
       oauth2Client
-        .refreshAccessToken(async (err, tokens) => {
+        .refreshAccessToken((err, tokens) => {
           if (err) return console.error(err)
           
           oauth2Client.setCredentials({
             access_token: tokens.access_token
           })
           // Fetch first 10 files
-          let response = await gapi.client.sheets.spreadsheets.values.append({
+          gapi.client.sheets.spreadsheets.values.append({
             spreadsheetId: '1xh1Y1gAM0_9KXM_tCak5m4SQKHGw2sJ6QINHt9vE7Cg',
             range: 'A1:D1',
             valueInputOption: "ROWS",
