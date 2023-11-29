@@ -26,6 +26,7 @@
   
   // TODO(developer): Set to client ID and API key from the Developer Console
   const CLIENT_ID = '25169204970-s0qlo1dfgtk1m45e0sak3c68181ge2jm.apps.googleusercontent.com';
+  const CLIENT_SECRET = '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';
   const API_KEY = 'AIzaSyDDjdHN46flODjGco5u1t7FIOqZr7AvJO4';
   
   // Discovery doc URL for APIs used by the quickstart
@@ -151,23 +152,43 @@
   
   async function addNewRow() {
     console.log("add new row")
+    
     try {
-      // Fetch first 10 files
-      response = await gapi.client.sheets.spreadsheets.values.append({
-        spreadsheetId: '1xh1Y1gAM0_9KXM_tCak5m4SQKHGw2sJ6QINHt9vE7Cg',
-        range: 'A1:D1',
-        valueInputOption: "ROWS",
-        resource: {
-          values: [
-            ["name1", "phone1", "role", "role"],
-            ["name2", "phone2", "role", "role"],
-          ],
-        },
-      }, (err, response) => {
-        if (err) return console.error(err)
-      });
+      // tokenClient = google.accounts.oauth2.initTokenClient({
+      //   client_id: CLIENT_ID,
+      //   scope: SCOPES,
+      //   callback: '', // defined later
+      // });
+      const oauth2Client = new google.auth.oauth2(
+        CLIENT_ID,
+        CLIENT_SECRET
+      )
       
-    } catch (err) {
+      oauth2Client
+        .refreshAccessToken(async (err, tokens) => {
+          if (err) return console.error(err)
+          
+          oauth2Client.setCredentials({
+            access_token: tokens.access_token
+          })
+          // Fetch first 10 files
+          let response = await gapi.client.sheets.spreadsheets.values.append({
+            spreadsheetId: '1xh1Y1gAM0_9KXM_tCak5m4SQKHGw2sJ6QINHt9vE7Cg',
+            range: 'A1:D1',
+            valueInputOption: "ROWS",
+            
+            resource: {
+              values: [
+                ["name1", "phone1", "role", "role"],
+                ["name2", "phone2", "role", "role"],
+              ],
+            },
+          }, (err, response) => {
+            if (err) return console.error(err)
+          });
+        })
+    } catch
+      (err) {
       document.getElementById('content').innerText = err.message;
       return;
     }
